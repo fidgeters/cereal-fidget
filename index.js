@@ -35,7 +35,12 @@ function Decoder(bytes, port) {
 }
 
 var SerialPort = require("serialport");
-var port = new SerialPort("/dev/tty.usbmodem1421", {
+
+const args = process.argv.slice(2);
+const tty = args[0] || "/dev/tty.usbmodem1421";
+console.log(`Using TTY: ${tty}`);
+
+var port = new SerialPort(tty, {
   baudRate: 9600,
   parser: SerialPort.parsers.byteLength(9)
 });
